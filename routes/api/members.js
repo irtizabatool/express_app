@@ -4,21 +4,25 @@ const router = express.Router();
 const messages = require('../../Members');
 
 //Get Messages
-router.get('/', (req, res) => {
-    const msgs = messages.find(users => (users.sender === parseInt(req.body.sender) && users.receiver === parseInt(req.body.receiver)) 
-        || (users.sender === parseInt(req.body.receiver) && users.receiver === parseInt(req.body.sender)));
-    res.json(msgs);
-});
+// router.get('/', (req, res) => {
+//     const msgs = messages.find(users => (users.sender === parseInt(req.body.sender) && users.receiver === parseInt(req.body.receiver)) 
+//         || (users.sender === parseInt(req.body.receiver) && users.receiver === parseInt(req.body.sender)));
+//     res.json(msgs);
+// });
 
 //Save Messages
 router.post('/', (req,res) => {
-    const msgs = messages.find(users => (users.sender === parseInt(req.body.sender) && users.receiver === parseInt(req.body.receiver)) || (users.sender === parseInt(req.body.receiver) && users.receiver === parseInt(req.body.sender)));
-    if(msgs.sender === parseInt(req.body.sender) && msgs.receiver === parseInt(req.body.receiver)){
-        msgs.message1.push(req.body.message);
-    } else {
-        msgs.message2.push(req.body.message);
-    }
-    alert("hey");
+    const msgs = messages.find(users => (users.sender === 1 && users.receiver === 2));
+    console.log(req.body.message);
+    const ms = req.body.message;
+    const m = 0;
+    msgs.message1.push(ms);
+    // const msgs = messages.find(users => (users.sender === parseInt(req.body.sender) && users.receiver === parseInt(req.body.receiver)) || (users.sender === parseInt(req.body.receiver) && users.receiver === parseInt(req.body.sender)));
+    // if(msgs.sender === parseInt(req.body.sender) && msgs.receiver === parseInt(req.body.receiver)){
+    //     msgs.message1.push(req.body.message);
+    // } else {
+    //     msgs.message2.push(req.body.message);
+    // }
    res.json(messages);
 });
 

@@ -1,0 +1,13 @@
+<h1>{{ title }}</h1>
+<form action='/api/members' method="POST">
+    <div>
+        <label for="message">Message</label>
+        <input type="text" name = "message">
+        <input type="submit" value="SEND">
+    </div>
+</form>
+<ul>
+    {{#each messages}}
+    <li>{{this.message1}} : {{this.message2}}</li>
+    {{/each}}
+</ul>

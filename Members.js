@@ -1,5 +1,5 @@
 const messages = [
-    { sender: 1, receiver : 2, message1: ["messages from Alice to Bob"], message2: ["messages from Bob to Alice"]},
+    { sender: 1, receiver : 2, message1: ["messages from Alice to Bob", "hey"], message2: ["messages from Bob to Alice"]},
     { sender: 1, receiver : 3, message1: ["messages from user 1 -3"], message2: ["messages from user 3-1"]},
     { sender: 1, receiver : 4, message1: ["messages from user 1 -4"], message2: ["messages from user 4-1"]},
     { sender: 1, receiver : 5, message1: ["messages from user 1 -5"], message2: ["messages from user 5-1"]},
