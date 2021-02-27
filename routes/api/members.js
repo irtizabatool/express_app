@@ -12,18 +12,28 @@ const messages = require('../../Members');
 
 //Save Messages
 router.post('/', (req,res) => {
-    const msgs = messages.find(users => (users.sender === 1 && users.receiver === 2));
+    if(req.body.sender === req.body.receiver){
+        res.send("You Cannot Send Message to Yourself");
+    }
+    const msgs = messages.find(users => (users.sender === parseInt(req.body.sender) 
+        && users.receiver === parseInt(req.body.receiver)) 
+        || (users.sender === parseInt(req.body.receiver)
+        && users.receiver === parseInt(req.body.sender)));
     console.log(req.body.message);
     const ms = req.body.message;
-    const m = 0;
-    msgs.message1.push(ms);
+    if(msgs.sender === parseInt(req.body.sender)){
+        msgs.message1.push(ms);
+    } else {
+        msgs.message2.push(ms);
+    }
     // const msgs = messages.find(users => (users.sender === parseInt(req.body.sender) && users.receiver === parseInt(req.body.receiver)) || (users.sender === parseInt(req.body.receiver) && users.receiver === parseInt(req.body.sender)));
     // if(msgs.sender === parseInt(req.body.sender) && msgs.receiver === parseInt(req.body.receiver)){
     //     msgs.message1.push(req.body.message);
     // } else {
     //     msgs.message2.push(req.body.message);
     // }
-   res.json(messages);
+   //res.json(messages);
+   res.redirect('/');
 });
 
 // //Update Member
