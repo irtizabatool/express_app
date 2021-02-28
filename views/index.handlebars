@@ -1,7 +1,11 @@
 <div class="title">
     <h1>JavaScript Chat App</h1>
-</div>
-<form action='/api/members' method="POST">
+</div><script>
+  let sender = document.getElementById("sender");
+  let receiver =document.getElementById("receiver");
+  console.log(sender);
+</script>
+<form action='/api/members/' method="POST">
     <div id = "container">
       
         <div class="select-box">
@@ -14,8 +18,27 @@
              <option  style ="text-align: center;" value = 5>Earl</option>
           </select>
           <i class="fa fa-chevron-down" aria-hidden="true"></i>
+          <input type = "text" name = "smessage" id = "message" class="textbox" placeholder="Your Message here">
+          <button id = "buttonS">SEND</button>
         </div>
     </div>
+    <div id = "container">
+        <div class="select-box">
+          
+         
+        </div>
+        <div class="title">
+          <h1 style="color: aliceblue;">Message History</h1>
+        </div>
+            <div id = "messages">
+
+            {{#each messages}}
+            <p style="text-align: left;" id="sMessages">{{this.message1}}</p>
+            <p style="text-align: right;" id="rMessages">{{this.message2}}</p>
+            {{/each}}
+            <br>
+          </div>
+        </div>
     <div id = "container">
           <div class = "select-box">
             <select id="receiver" class="select-receiver" name = "receiver">
@@ -26,25 +49,9 @@
                  <option style ="text-align: center;" value = 5>Earl</option>
             </select>
             <i class="fa fa-chevron-down" aria-hidden="true"></i>
+             <input type = "text" name = "rmessage" id = "message" class="textbox" placeholder="Your Message here">
+          <button id = "buttonS">SEND</button>
           </div>
     </div>
-     <div id = "container">
-        <div class="select-box">
-          <input type = "text" name = "message" id = "message" class="textbox" placeholder="Your Message here">
-          <button id = "buttonS">SEND</button>
-        </div>
-        <div class="title">
-          <h1 style="color: aliceblue;">Message History</h1>
-        </div>
-            <div id = "messages">
-            <p style="text-align: left;" id="sMessages"></p>
-            <p style="text-align: right;" id="rMessages"></p>
-            <p></p>
-          </div>
-        </div>
+     
 </form>
-<ul>
-    {{#each messages}}
-    <li>{{this.message1}} : {{this.message2}}</li>
-    {{/each}}
-</ul>
