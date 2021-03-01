@@ -1,5 +1,5 @@
 const messages = [
-    { sender: 1, receiver : 2, message1: [], message2: []},
+    { sender: 1, receiver : 2, message1: ["Alice says hi"], message2: ["Bob says hi"]},
     { sender: 1, receiver : 3, message1: [], message2: []},
     { sender: 1, receiver : 4, message1: [], message2: []},
     { sender: 1, receiver : 5, message1: [], message2: []},

@@ -11,52 +11,46 @@
       <div class="title">
         <h1>JavaScript Chat App</h1>
       </div>
-      <form action="/routes/api/members" method="post"></form>
-    <div id = "container">
       
-        <div class="select-box">
+        <div id = "container">
           
-          <select id="sender" class="select-sender" name="sender">
-            <option style ="text-align: center;" value = 1>Alice</option>
-            <option  style ="text-align: center;" value = 2>Bob</option>
-             <option  style ="text-align: center;" value = 3>Catherine</option>
-            <option  style ="text-align: center;" value = 4>Darwin</option>
-             <option  style ="text-align: center;" value = 5>Earl</option>
-          </select>
-          <i class="fa fa-chevron-down" aria-hidden="true"></i>
-        
-        </div>
-      </div>
-      <div id = "container">
-        <div class="select-box">
-          <input type = "text" name = "message" id = "message" class="textbox" placeholder="Your Message here">
-          <button id = "buttonS">SEND</button>
-        </div>
-        <div class="title">
-          <h1 style="color: aliceblue;">Message History</h1>
-        </div>
-            <div id = "messages">
-            <p style="text-align: left;" id="sMessages"></p>
-            <p style="text-align: right;" id="rMessages"></p>
-            <p></p>
-          </div>
+            <div class="select-box">
+              <select id="sender" class="select-sender" name="sender">
+                <option style ="text-align: center;" value = 1>Alice</option>
+                <option  style ="text-align: center;" value = 2>Bob</option>
+                <option  style ="text-align: center;" value = 3>Catherine</option>
+                <option  style ="text-align: center;" value = 4>Darwin</option>
+                <option  style ="text-align: center;" value = 5>Earl</option>
+              </select>
+              <i class="fa fa-chevron-down" aria-hidden="true"></i>
+              <input type = "text" name = "smessage" id = "smessage" class="textbox" placeholder="Your Message here">
+              <button id = "buttonS">SEND</button>
+            </div>
         </div>
         <div id = "container">
-          <div class = "select-box">
-              
-             
-             <select id="receiver" class="select-receiver" name = "receiver">
-                <option style ="text-align: center;" value = 1>Alice</option>
-                <option style ="text-align: center;" value = 2>Bob</option>
-                 <option style ="text-align: center;" value = 3>Catherine</option>
-                <option style ="text-align: center;" value = 4>Darwin</option>
-                 <option style ="text-align: center;" value = 5>Earl</option>
-            </select>
-            <i class="fa fa-chevron-down" aria-hidden="true"></i>
-          </div>
-            
-            
-          </div>
-        </form>
+            <div class="title">
+              <h1 style="color: aliceblue;">Message History</h1>
+            </div>
+              <div id = "messages">
+                <p style="text-align: left;" id="sMessages"></p>
+                <p style="text-align: right;" id="rMessages"></p>
+              </div>
+            </div>
+        <div id = "container">
+              <div class = "select-box">
+                <select id="receiver" class="select-receiver" name = "receiver">
+                    <option style ="text-align: center;" value = 1>Alice</option>
+                    <option style ="text-align: center;" value = 2>Bob</option>
+                    <option style ="text-align: center;" value = 3>Catherine</option>
+                    <option style ="text-align: center;" value = 4>Darwin</option>
+                    <option style ="text-align: center;" value = 5>Earl</option>
+                </select>
+                <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                 <input type = "text" name = "rmessage" id = "rmessage" class="textbox" placeholder="Your Message here">
+              <button id = "buttonR">SEND</button>
+              </div>
+        </div>
+        <script src="jquery.js"></script>
+         <script src = "scripts.js"></script>
   </body>
 </html>

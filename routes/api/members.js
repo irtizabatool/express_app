@@ -4,14 +4,14 @@ const router = express.Router();
 const messages = require('../../Members');
 
 //Get Messages
-// router.get('/', (req, res) => {
-//     const msgs = messages.find(users => (users.sender === parseInt(req.body.sender) && users.receiver === parseInt(req.body.receiver)) 
-//         || (users.sender === parseInt(req.body.receiver) && users.receiver === parseInt(req.body.sender)));
-//     res.json(msgs);
-// });
+router.get('/', (req, res) => {
+    const msgs = messages.find(users => (users.sender === parseInt(req.body.sender) && users.receiver === parseInt(req.body.receiver)) 
+        || (users.sender === parseInt(req.body.receiver) && users.receiver === parseInt(req.body.sender)));
+    res.json(msgs);
+});
 
 //Save Messages
-router.post('/', (req,res) => {
+router.post('/messages', (req,res) => {
     if(req.body.sender === req.body.receiver){
         res.send("You Cannot Send Message to Yourself");
     }else{
@@ -38,7 +38,7 @@ router.post('/', (req,res) => {
     }
     //const ms = req.body.message;
     
-   res.redirect('/');
+   res.send('Success');
 }
 });
 
