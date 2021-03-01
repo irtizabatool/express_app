@@ -14,8 +14,9 @@ app.engine('handlebars', exphbs({ defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 //app.use(logger);
 app.get('/', (req,res) => {
+    //console.log(messages);
     //const arr = messages.find(usr => (usr.sender == req.params.sender && usr.receiver == req.params.receiver) || usr.sender == req.params.receiver && usr.receiver == req.params.sender);
-    res.render('index'{
+    res.render('index', {
         messages
     });
 });
