@@ -1,4 +1,5 @@
 $(function(){
+    //GET On-Change of Left dropdown box
     $('#sender').on('change', () => {
         $('#sMessages').text('');
         $('#rMessages').text('');
@@ -28,7 +29,7 @@ $(function(){
             });
         }
     });
-
+    //GET On-Change of Right dropdown box
     $('#receiver').on('change', () => {
         $('#sMessages').text('');
         $('#rMessages').text('');
@@ -58,7 +59,7 @@ $(function(){
             });
         }
     });
-
+    //POST by Left User
     $('#buttonS').on('click', () => {
         $('#sMessages').text('');
         $('#rMessages').text('');
@@ -87,7 +88,7 @@ $(function(){
             alert("Cannot send text to yourself");
         }
     });
-
+    //POST by Right User
     $('#buttonR').on('click', () => {
         $('#sMessages').text('');
         $('#rMessages').text('');
