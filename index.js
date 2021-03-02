@@ -10,7 +10,8 @@ const app = express();
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: ''
+    password: '',
+    database: 'mysqlexpress'
 });
 
 //Connect
@@ -26,6 +27,58 @@ app.get('/createdb', (req,res) => {
         if(err) throw err;
         console.log(result);
         res.send('Database created');
+    });
+});
+
+//Create Table
+app.get('/createtest', (req,res) => {
+    let sql = 'CREATE TABLE test(id int AUTO_INCREMENT, title VARCHAR(255), body VARCHAR(255), PRIMARY KEY (id))';
+    db.query(sql, (err, result) => {
+        if (err) throw err;
+        console.log(result);
+        res.send('Created test table');
+    });
+});
+
+//Insert Data
+app.get('/addtest', (req,res) => {
+    let test = { title: 'Second Test', body: 'This is Second Test'};
+    let sql = 'INSERT INTO test SET ?';
+    let query = db.query(sql, test, (err, result) => {
+        if (err) throw err;
+        console.log(result);
+        res.send('Second Test Added');
+    });
+});
+
+//Select 
+app.get('/showtest/:id', (req, res) => {
+    let sql = `SELECT *FROM test WHERE id = ${req.params.id}`;
+    let query = db.query(sql, (err, result) => {
+        if (err) throw err;
+        console.log(result);
+        res.send('Test 2 fetched');
+    });
+});
+
+//Update
+app.get('/update/:id', (req, res) => {
+    let newTitle = 'Last Test';
+    let sql = `UPDATE test SET title = '${newTitle}' WHERE id = ${req.params.id}`;
+    let query = db.query(sql, (err, result) => {
+        if (err) throw err;
+        console.log(result);
+        res.send('Updated');
+    });
+});
+
+//Delete
+app.get('/delete/:id', (req,res) => {
+    let sql = `DELETE FROM test WHERE id = ${req.params.id}`;
+    let query = db.query(sql, (err, result) => {
+        if (err) throw err;
+        console.log(result);
+        res.send('DELETED');
     });
 });
 
