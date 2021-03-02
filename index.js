@@ -1,11 +1,34 @@
 const express = require('express');
+const mysql = require('mysql');
 const path = require('path');
 const exphbs = require('express-handlebars');
 const messages = require('./Members');
+const app = express();
 //const logger = require('./middleware/logger');
 
-const app = express();
-    
+//Create connection
+const db = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: ''
+});
+
+//Connect
+db.connect((err) => {
+    if(err) throw err;
+    console.log('Mysql Connected...');
+});
+
+//Create a database
+app.get('/createdb', (req,res) => {
+    let sql = 'CREATE DATABASE mysqlexpress';
+    db.query(sql, (err, result) => {
+        if(err) throw err;
+        console.log(result);
+        res.send('Database created');
+    });
+});
+
 //Body Parser Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
