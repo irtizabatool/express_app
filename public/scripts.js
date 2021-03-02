@@ -1,68 +1,70 @@
 $(function(){
+    //Get users
+    $(document).ready(() => {
+        $.ajax({
+            url: '/getusers',
+            success:(response) => {
+                response.users.forEach((user) => {
+                    $('#sender').append('\<option value = ' + user.id + '>' + user.username + '</option>');
+                    $('#receiver').append('\<option value = ' + user.id + '>' + user.username + '</option>')
+                });
+            }
+        })
+    });
     //GET On-Change of Left dropdown box
     $('#sender').on('change', () => {
-        $('#sMessages').text('');
-        $('#rMessages').text('');
-        let senderVal = $('#sender');
-        let receiverVal = $('#receiver');
-        if(senderVal.val() !== receiverVal.val()){
+        $('#messages').html('  ');
+        let sender = $('#sender');
+        let receiver = $('#receiver');
+        if(sender.val() !== receiver.val()){
             $.ajax({
-                url: '/messages',
-                contentType: 'application/json',
-                success: function(response){
-                    const arr = response.messages.find(users => (users.sender === parseInt(senderVal.val()) 
-                    && users.receiver === parseInt(receiverVal.val())) 
-                    || (users.sender === parseInt(receiverVal.val())
-                    && users.receiver === parseInt(senderVal.val())));
-                    if(arr.sender === parseInt(senderVal.val())) {
-                        $('#sMessages').text(arr.message1);
-                        $('#rMessages').text(arr.message2);
-                        console.log(arr.message1);
-                        console.log(arr.message2);
-                    }else {
-                        $('#sMessages').text(arr.message2);
-                        $('#rMessages').text(arr.message1);
-                        console.log(arr.message2);
-                        console.log(arr.message1);
+                url: '/getmessages',
+                method: 'GET',                   
+                data: {
+                    sender: sender.val(),
+                    receiver: receiver.val()
+                },
+                success: (response) => {
+                    response.users.forEach((user) => {
+                    if(user.leftuser === sender.val()){
+                        $('#messages').append('\<p style="text-align:left">' + user.message +'<p>')
+                    }else{
+                        $('#messages').append('\<p style="text-align:right">' + user.message +'<p>')
                     }
+                    console.log(user.leftuser);
+                    })
                 }
             });
         }
     });
     //GET On-Change of Right dropdown box
     $('#receiver').on('change', () => {
-        $('#sMessages').text('');
-        $('#rMessages').text('');
-        let senderVal = $('#sender');
-        let receiverVal = $('#receiver');
-        if(senderVal.val() !== receiverVal.val()){
+        $('#messages').html('  ');
+        let sender = $('#sender');
+        let receiver = $('#receiver');
+        if(sender.val() !== receiver.val()){
             $.ajax({
-                url: '/messages',
-                contentType: 'application/json',
-                success: function(response){
-                    const arr = response.messages.find(users => (users.sender === parseInt(senderVal.val()) 
-                    && users.receiver === parseInt(receiverVal.val())) 
-                    || (users.sender === parseInt(receiverVal.val())
-                    && users.receiver === parseInt(senderVal.val())));
-                    if(arr.sender === parseInt(senderVal.val())){
-                        $('#sMessages').text(arr.message1);
-                        $('#rMessages').text(arr.message2);
-                        console.log(arr.message1);
-                        console.log(arr.message2);
-                    }else {
-                        $('#sMessages').text(arr.message2);
-                        $('#rMessages').text(arr.message1);
-                        console.log(arr.message2);
-                        console.log(arr.message1);
+                url: '/getmessages',
+                method: 'GET',                   
+                data: {
+                    sender: receiver.val(),
+                    receiver: sender.val()
+                },
+                success: (response) => {
+                    response.users.forEach((user) => {
+                    if(user.leftuser === sender.val()){
+                        $('#messages').append('\<p style="text-align:left">' + user.message +'<p>')
+                    }else{
+                        $('#messages').append('\<p style="text-align:right">' + user.message +'<p>')
                     }
+                    console.log(user.leftuser);
+                    })
                 }
             });
         }
     });
     //POST by Left User
     $('#buttonS').on('click', () => {
-        $('#sMessages').text('');
-        $('#rMessages').text('');
         let sender = $('#sender');
         let receiver = $('#receiver');
         let message1 = $('#smessage');
@@ -75,11 +77,10 @@ $(function(){
             data: JSON.stringify({
                 sender: sender.val(),
                 receiver: receiver.val(),
-                message1: message1.val(),
-                message2: message2
+                message: message1.val(),
             }),
             success: function(response){
-                // console.log(response);
+                console.log(response);
                 message1.val('');
                 $('#sender').change();
             } 
@@ -90,8 +91,6 @@ $(function(){
     });
     //POST by Right User
     $('#buttonR').on('click', () => {
-        $('#sMessages').text('');
-        $('#rMessages').text('');
         let sender = $('#sender');
         let receiver = $('#receiver');
         let message1 = '';
@@ -102,13 +101,12 @@ $(function(){
             method:'POST',
             contentType: 'application/json',
             data: JSON.stringify({
-                sender: sender.val(),
-                receiver: receiver.val(),
-                message1: message1,
-                message2: message2.val()
+                sender: receiver.val(),
+                receiver: sender.val(),
+                message: message2.val()
             }),
             success: function(response){
-                //console.log(message.val());
+                console.log(response);
                 message2.val('');
                 $('#sender').change();
             } 

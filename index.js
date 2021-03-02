@@ -1,4 +1,5 @@
 const express = require('express');
+const uuid = require('uuid');
 const mysql = require('mysql');
 const path = require('path');
 const exphbs = require('express-handlebars');
@@ -20,65 +21,13 @@ db.connect((err) => {
     console.log('Mysql Connected...');
 });
 
-//Create a database
-app.get('/createdb', (req,res) => {
-    let sql = 'CREATE DATABASE mysqlexpress';
-    db.query(sql, (err, result) => {
-        if(err) throw err;
-        console.log(result);
-        res.send('Database created');
-    });
-});
-
-//Create Table
-app.get('/createtest', (req,res) => {
-    let sql = 'CREATE TABLE test(id int AUTO_INCREMENT, title VARCHAR(255), body VARCHAR(255), PRIMARY KEY (id))';
-    db.query(sql, (err, result) => {
-        if (err) throw err;
-        console.log(result);
-        res.send('Created test table');
-    });
-});
-
-//Insert Data
-app.get('/addtest', (req,res) => {
-    let test = { title: 'Second Test', body: 'This is Second Test'};
-    let sql = 'INSERT INTO test SET ?';
-    let query = db.query(sql, test, (err, result) => {
-        if (err) throw err;
-        console.log(result);
-        res.send('Second Test Added');
-    });
-});
-
 //Select 
-app.get('/showtest/:id', (req, res) => {
-    let sql = `SELECT *FROM test WHERE id = ${req.params.id}`;
+app.get('/getusers', (req, res) => {
+    let sql = `SELECT *FROM users`;
     let query = db.query(sql, (err, result) => {
         if (err) throw err;
         console.log(result);
-        res.send('Test 2 fetched');
-    });
-});
-
-//Update
-app.get('/update/:id', (req, res) => {
-    let newTitle = 'Last Test';
-    let sql = `UPDATE test SET title = '${newTitle}' WHERE id = ${req.params.id}`;
-    let query = db.query(sql, (err, result) => {
-        if (err) throw err;
-        console.log(result);
-        res.send('Updated');
-    });
-});
-
-//Delete
-app.get('/delete/:id', (req,res) => {
-    let sql = `DELETE FROM test WHERE id = ${req.params.id}`;
-    let query = db.query(sql, (err, result) => {
-        if (err) throw err;
-        console.log(result);
-        res.send('DELETED');
+        res.send({ users: result });
     });
 });
 
@@ -87,35 +36,27 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 //methods
-app.get('/messages', function(req, res) {
-    res.send({ messages: messages });
+app.get('/getmessages', function(req, res) {
+   
+    let sql = `SELECT *FROM messages WHERE (leftuser = '${req.query.sender}' AND rightuser = '${req.query.receiver}') OR leftuser = '${req.query.receiver}' AND rightuser = '${req.query.sender}'`;
+    let query = db.query(sql, (err, result) => {
+        if (err) throw err;
+        console.log(result);
+        const sortedUser = result.sort((a,b) => b.date < a.date? 1: -1 );
+        res.send({ users: sortedUser});
+    });
 });
 
 app.post('/messages', (req,res) => {
     if(req.body.sender === req.body.receiver){
         res.send("You Cannot Send Message to Yourself");
     }else{
-        const msgs = messages.find(users => (users.sender === parseInt(req.body.sender) 
-            && users.receiver === parseInt(req.body.receiver)) 
-            || (users.sender === parseInt(req.body.receiver)
-            && users.receiver === parseInt(req.body.sender)));
-        const sms = req.body.message1;
-        const rms = req.body.message2;
-        if(rms === ''){
-            if(msgs.sender === parseInt(req.body.sender)){
-                msgs.message1.push(sms);
-            } else {
-                msgs.message2.push(sms);
-            }
-        }
-        else{
-            if(msgs.sender === parseInt(req.body.sender)){
-                msgs.message2.push(rms);
-            } else {
-                msgs.message1.push(rms);
-            }
-        }
-    res.send('Success');
+        let add = {id: uuid.v4(), leftuser: req.body.sender, rightuser: req.body.receiver, message: req.body.message}
+        let sql = 'INSERT INTO messages SET ?';
+        db.query(sql, add, (err, result) => {
+            console.log(result);
+            if (err) throw err;
+        })
     }
 });
 

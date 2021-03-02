@@ -72,7 +72,7 @@ button:focus{
 #messages {
   margin-top: 2rem;
   width: 98%;
-  height: 25rem;
+  height: 55rem;
   justify-content: space-around;
   border-radius: 10px;
   background-color: rgb(249, 255, 250);
@@ -87,6 +87,7 @@ button:focus{
   font-size: 1.5rem;
   font-weight: 600;
   font-family: "Oswald", sans-serif;
+  scroll-behavior: auto;
 }
 
 .select-box{
