@@ -56,7 +56,8 @@ app.post('/messages', (req,res) => {
         db.query(sql, add, (err, result) => {
             console.log(result);
             if (err) throw err;
-        })
+            res.send(result);
+        });
     }
 });
 

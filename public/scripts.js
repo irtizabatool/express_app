@@ -39,7 +39,7 @@ $(function(){
     });
     //GET On-Change of Right dropdown box
     $('#receiver').on('change', () => {
-        $('#messages').html('  ');
+        ('#messages').html('  ');
         let sender = $('#sender');
         let receiver = $('#receiver');
         if(sender.val() !== receiver.val()){
@@ -68,7 +68,6 @@ $(function(){
         let sender = $('#sender');
         let receiver = $('#receiver');
         let message1 = $('#smessage');
-        let message2 = '';
         if(sender.val() !== receiver.val()){
             $.ajax({
             url: '/messages',
